@@ -30,7 +30,7 @@ var isDevelopment = process.env.NODE_ENV === 'development';
 db.sequelize.sync({force: isDevelopment})
     .then(() => {
         if(isDevelopment) console.log('Drop and re-sync db.')
-        run();
+        run().then(() => { debug()})
     })
 
 
@@ -92,7 +92,7 @@ const run = async () => {
 
     const teclado_stocks = await inventario.addStocks(
         teclado.name,
-        150,
+        160,
         'Usado',
         new Date(),
         teclado.productId,
@@ -122,7 +122,9 @@ const run = async () => {
             cantidad: 3
         }
     ])
+}
 
+const debug = async () => {
     // const ventaTeclado = await inventario.removeStocks(
     //     teclado.name,
     //     1,
@@ -133,14 +135,15 @@ const run = async () => {
     // const ddlo1 = await clientes.get
 
 
-    const orrdenes = await clientes.findAll();
-    console.log(`>> Todos los clientes ${JSON.stringify(orrdenes, null, 2)}`)
+    // const orrdenes = await clientes.findAll();
+    // console.log(`>> Todos los clientes ${JSON.stringify(orrdenes, null, 2)}`)
+    const sttocks = await inventario.outStock();
+    console.log(`>> Inventario <<\n${JSON.stringify(await inventario.outStock(), null, 2)}`)
+    
+   
 
-    // const sttocks = await inventario.auditInventory();
-    // console.log(`>> Inventario <<\n${JSON.stringify(sttocks, null, 4)}`)
-
-    const pdres = await proveedores.consultarProveedores();
-    console.log(`>> Proveedores: ${JSON.stringify(pdres, null, 4)}`)
+    // const pdres = await proveedores.consultarProveedores();
+    // console.log(`>> Proveedores: ${JSON.stringify(pdres, null, 4)}`)
 }
 
 

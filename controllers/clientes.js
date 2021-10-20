@@ -15,7 +15,7 @@ exports.crearCliente = (cliente) => {
         email: cliente.correoElectronico
     })
         .then((cliente) => {
-            console.log(`>> Creado cliente: ${JSON.stringify(cliente, null, 4)}]`);
+            //console.log(`>> Creado cliente: ${JSON.stringify(cliente, null, 4)}]`);
             return cliente;
         })
         .catch((err) => {
@@ -43,19 +43,18 @@ exports.crearOrden = (cliente, detalles) => {
                 })
                 .then((detallesDeLaOrden) => {
                     Inventario.removeStocks(
-                        'sa',
-                        detalles.cantidad,
+                        detallesDeLaOrden.quantity,
                         new Date(),
                         uuidv4(),
                         'VENTA',
                         orden.orderId
                     )
                 })
-                .catch(e => {
+                .catch((e) => {
                     console.error(e)
                 }) 
             })
-            console.log(`>> Creada la orden ${JSON.stringify(orden, null, 4)}`);
+            //console.log(`>> Creada la orden ${JSON.stringify(orden, null, 4)}`);
             return orden;
         })
         .catch((err) => {

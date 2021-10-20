@@ -4,7 +4,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             primaryKey: true
         },
-        type: Sequelize.ENUM('IN', 'OUT'),
+        // type: Sequelize.ENUM('IN', 'OUT'),
+        type: Sequelize.STRING,
         quantity: Sequelize.INTEGER,
         date: Sequelize.DATE(6),
         reason: Sequelize.STRING

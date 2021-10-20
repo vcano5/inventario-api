@@ -14,7 +14,7 @@ exports.addStocks = (nombre, cantidad, condicion, fecha, producto, proveedor) =>
     })
 }
 
-exports.removeStocks = (nombre, cantidad, fecha, id, razon, orden) => {
+exports.removeStocks = (cantidad, fecha, id, razon, orden) => {
     return Inventario.create({
         stockId: uuidv4(),
         type: 'OUT',
@@ -26,32 +26,42 @@ exports.removeStocks = (nombre, cantidad, fecha, id, razon, orden) => {
     })
 }
 
-exports.auditInventory = () => {
-    return Inventario.findAll({})
+exports.auditInventory = (req, res) => {
+    Inventario.findAll({include: ['proveedore', 'ordene']})
         .then((inventario) => {
-            return inventario;
+            res.send(inventario)// inventario;
         })
         .catch((err) => {
-            console.error(err);
+            res.status(500).send(err)
+            // console.error(err);
         })
 }
 
-exports.in = () => {
-    return Inventario.find({type: 'IN'})
+exports.getIn = (req, res) => {
+    Inventario.findAll({where: {type: 'IN'}})
         .then((inventario) => {
-            return Inventario;
+            res.send(inventario);
         })
         .catch((err) => {
-            console.error(err);
+            res.send(err).status(500)
+            // console.error(err);
         })
 }
 
-exports.out = () => {
-    return Inventario.find({type: 'OUT'})
+exports.getOut = (req, res) => {
+    Inventario.findAll({where: {type: 'OUT'}})
         .then((inventario) => {
-            return Inventario;
+            res.send(inventario);
         })
         .catch((err) => {
-            console.error(err);
+            res.send(err).status(500)
+            //console.error(err);
+        })
+}
+
+exports.getById = (req, res) => {
+    Inventario.findAll({where: {stockId: req.params.id}})
+        .then(data => {
+            res.status(200).send(data)
         })
 }
