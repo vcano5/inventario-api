@@ -43,7 +43,7 @@ function createItem(req, res) {
     }
 }
 
-function readAr(req, res) {
+function readItem(req, res) {
     if(req.params.id !== undefined) {
         Articulo.findByPk(req.query.id)
             .then(data => {
@@ -53,4 +53,39 @@ function readAr(req, res) {
                 res.status(500).send({mensaje: 'Ocurrio un error al procesar tu solicitud', consulta: {id: req.query.id}})
             })
     }
+}
+
+function updateItem(req, res) {
+    const id = req.body.ID;
+    if(req.params.id !== undefined) {
+        Articulo.update(req.body, {
+            where: {idArticulo: id}
+        })
+            .then(num => {
+                if(num == 1) {
+                    res.send({
+                        message: 'Articulo actualizado correctamente'
+                    })
+                }
+                else {
+                    res.send({
+                        message: `No se puede actualizar el Articulo con ID=${id}. Tal vez no estas autorizado para llevar a cabo esta accion`,
+                        code: 403
+                    })
+                }
+            })
+            .catch(e => {
+                res.status(500).send({
+                    message: `Error interno al intentar actualizar el articulo con ID=${id}`
+                })
+            })
+    }
+}
+
+
+module.exports = {
+    searchBy,
+    createItem,
+    readItem,
+    updateItem
 }
