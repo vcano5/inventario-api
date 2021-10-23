@@ -137,8 +137,8 @@ const debug = async () => {
 
     // const orrdenes = await clientes.findAll();
     // console.log(`>> Todos los clientes ${JSON.stringify(orrdenes, null, 2)}`)
-    const sttocks = await inventario.outStock();
-    console.log(`>> Inventario <<\n${JSON.stringify(await inventario.outStock(), null, 2)}`)
+    // const sttocks = await inventario.getOut();
+    // console.log(`>> Inventario <<\n${JSON.stringify(await inventario.outStock(), null, 2)}`)
     
    
 

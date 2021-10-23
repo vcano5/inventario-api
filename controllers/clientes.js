@@ -2,7 +2,7 @@ const db = require('../models');
 const Cliente = db.cliente;
 const Orden = db.orden;
 const DetallesDeOrden = db.detallesDeOrden;
-const Inventario = require('./Inventario');
+const Inventario = require('./inventario');
 const {v4: uuidv4} = require('uuid');
 
 exports.crearCliente = (cliente) => {
@@ -82,10 +82,12 @@ exports.findOrderByOrderId = (orderId) => {
         })
 }
 
-exports.findAll = () => {
+exports.findAll = (req, res) => {
     return Cliente.findAll({include: ['ordenes']})
         .then((cliente) => {
-            return cliente;
+            res.send(cliente).status(200);
+        })
+        .catch(e => {
+            res.send(e).status(500);
         })
 }
-

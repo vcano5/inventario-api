@@ -41,7 +41,8 @@ db.inventario = require('./Inventario')(sequelize, Sequelize);
 db.cliente.hasMany(db.orden, {foreignKey: 'clientId'})
 db.orden.belongsTo(db.cliente, {foreignKey: 'clientId'})
 
-db.orden.hasMany(db.detallesDeOrden, {as: 'detallesDeLaOrden', foreignKey: 'ordenPadre'})
+db.orden.hasMany(db.detallesDeOrden, {as: 'detallesDeLaOrden', foreignKey: 'ordenPadre'})+
+db.detallesDeOrden.belongsTo(db.orden, {foreignKey: 'ordenPadre'})
 db.detallesDeOrden.belongsTo(db.producto, {foreignKey: 'productId'})
 
 db.proveedor.hasMany(db.inventario, {foreignKey: 'supplierId'})
