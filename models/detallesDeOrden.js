@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             primaryKey: true
         },
-        unitaryPrice: Sequelize.FLOAT(8),
+        unitaryPrice: Sequelize.FLOAT(8, 2),
         size: Sequelize.INTEGER,
         quantity: Sequelize.INTEGER,
         discount: Sequelize.INTEGER,

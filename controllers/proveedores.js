@@ -2,31 +2,33 @@ const db = require('../models');
 const Proveedor = db.proveedor;
 const {v4: uuidv4} = require('uuid');
 
-exports.registarProveedor = (detallesProveedor) => {
-    return Proveedor.create({
+exports.registarProveedor = (req, res) => {
+    detallesProveedor = req.body;
+    Proveedor.create({
         supplierId: uuidv4(),
-        name: detallesProveedor.nombre,
-        address: detallesProveedor.direccion,
-        phone: detallesProveedor.telefono,
-        email: detallesProveedor.correo,
-        otherDetails: detallesProveedor.informacionAdicional
+        name: detallesProveedor.name,
+        address: detallesProveedor.address,
+        phone: detallesProveedor.phone,
+        email: detallesProveedor.email,
+        otherDetails: detallesProveedor.otherDetails
     })
     .then((proveedor) => {
         console.log(`>> Registrado proveedor ${JSON.stringify(proveedor, null, 4)}`);
-        return proveedor;
+        res.send({message: 'Ok'}).status(200)
     })
     .catch(err => {
-        console.error(err);
+        res.send({message: '500'}).status(500)
     })
 }
 
-exports.consultarProveedorPorId = (proveedorId) => {
-    return Proveedor.findByPk(proveedorId)
+exports.consultarProveedorPorId = (req, res) => {
+    proveedorId = req.params.id;
+    Proveedor.findByPk(proveedorId)
         .then((proveedor) => {
-            return proveedor;
+            res.send(proveedor);
         })
         .catch((err) => {
-            console.error(err);
+            res.send({message: 'Ocurrio un error', code: 500});
         })
 }
 

@@ -8,8 +8,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         firstName: Sequelize.STRING(40),
         lastName: Sequelize.STRING(40),
-        address: Sequelize.STRING(40),
-        phone: Sequelize.INTEGER(10),
+        address: Sequelize.STRING(500),
+        phone: Sequelize.BIGINT(10),
         email: Sequelize.STRING(40)
     })
     return Cliente;

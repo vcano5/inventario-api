@@ -19,9 +19,9 @@ ENV NODE_ENV=production
 ENV SECRET=d8f295710070d855
 #Shake-256
 ENV DB_HOST=host.docker.internal
-ENV DB_USER=prueba
-ENV DB_PASSWORD=prueba
-ENV DB=prueba
+ENV DB_USER=inventarios_api
+ENV DB_PASSWORD=[=N8z=HxkJV@
+ENV DB=inventarios_api
 ENV PORT=3049
 
 EXPOSE 3049

@@ -37,6 +37,44 @@ exports.auditInventory = (req, res) => {
         })
 }
 
+exports.auditInventoryByDate = (req, res) => {
+    Inventario.findAll({include: ['proveedore', 'ordene', 'producto'], order: [['updatedAt', 'DESC']]})
+        .then((inventario) => {
+            console.log(inventario)
+            res.send(inventario)// inventario;
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+            // console.error(err);
+        })
+}
+
+exports.getQuantity = (req, res) => {
+    if(req.query.ID) {
+
+    }
+    else {
+        Inventario.findAll({})
+            .then(inventario => {
+                resultados = {}
+                inventario.forEach(articulo => {
+                    if(resultados[articulo.productId]) {
+                        if(articulo.type == "IN") {
+                            resultados[articulo.productId] += articulo.quantity;
+                        }
+                        else {
+                            resultados[articulo.productId] -= articulo.quantity;
+                        }
+                    }
+                    else {
+                        resultados[articulo.productId] = articulo.quantity;
+                    }
+                })
+                res.send(resultados)
+            })
+    }
+}
+
 exports.getIn = (req, res) => {
     Inventario.findAll({where: {type: 'IN'}})
         .then((inventario) => {

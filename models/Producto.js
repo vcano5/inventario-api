@@ -11,9 +11,10 @@ module.exports = (sequelize, Sequelize) => {
         cost: Sequelize.DOUBLE,
         price: Sequelize.DOUBLE,
         brand: Sequelize.STRING,
+        image: Sequelize.STRING(1024),
         minimumStock: Sequelize.INTEGER,
-        category: Sequelize.INTEGER,
-        condition: Sequelize.ENUM('NUEVO', 'USADO', 'REACONDICIONADO')
+        category: Sequelize.STRING,
+        condition: Sequelize.STRING//('NUEVO', 'USADO', 'REACONDICIONADO')
     })
 
     return Producto

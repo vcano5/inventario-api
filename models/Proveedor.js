@@ -5,8 +5,8 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         name: Sequelize.STRING,
-        address: Sequelize.STRING(256),
-        phone: Sequelize.INTEGER(10),
+        address: Sequelize.STRING(500),
+        phone: Sequelize.BIGINT(10),
         email: Sequelize.STRING(40),
         otherDetails: Sequelize.STRING
     })

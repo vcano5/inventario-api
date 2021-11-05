@@ -1,5 +1,7 @@
+
 const Sequelize = require('sequelize')
 let dev = process.env.NODE_ENV === "development"
+require('dotenv').config()
 
 const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
@@ -43,6 +45,7 @@ db.orden.belongsTo(db.cliente, {foreignKey: 'clientId'})
 
 db.orden.hasMany(db.detallesDeOrden, {as: 'detallesDeLaOrden', foreignKey: 'ordenPadre'})+
 db.detallesDeOrden.belongsTo(db.orden, {foreignKey: 'ordenPadre'})
+db.producto.hasMany(db.detallesDeOrden, {foreignKey: 'productId'})
 db.detallesDeOrden.belongsTo(db.producto, {foreignKey: 'productId'})
 
 db.proveedor.hasMany(db.inventario, {foreignKey: 'supplierId'})
@@ -50,9 +53,10 @@ db.inventario.belongsTo(db.proveedor, {foreignKey: 'supplierId'})
 
 // db.orden.hasMany(db.inventario, {foreignKey: 'orderId'})
 db.inventario.belongsTo(db.orden, {foreignKey: 'orderId'})
+db.producto.hasMany(db.inventario, {foreignKey: 'productId'})
 
 // db.producto.hasMany(db.inventario, { foreignKey: 'productId' })
-// db.inventario.belongsTo(db.producto, {foreignKey: 'productId'})
+db.inventario.belongsTo(db.producto, {foreignKey: 'productId'})
 // db.inventario.hasMany(db.producto, {foreignKey: 'productId'})
 
 
